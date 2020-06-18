@@ -50,7 +50,7 @@ class FileResourceProviderTest : JUnit5Minutests {
 
   inner class Fixture {
     val path = javaClass.classLoader.getResource("test.txt")?.path ?: throw IllegalStateException("whoops!")
-    val subject = FileResourceProvider(Config(path))
+    val subject = FileResourceProvider(FileResourceConfigurationProperties(path))
     val group = Files.getFileAttributeView(Paths.get(path), PosixFileAttributeView::class.java).readAttributes().group().name
     val role = Role(group)
   }

@@ -8,7 +8,13 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry
 class FileResourceProviderPlugin(wrapper: PluginWrapper) : PrivilegedSpringPlugin(wrapper) {
 
   override fun registerBeanDefinitions(registry: BeanDefinitionRegistry) {
-    registerBean(primaryBeanDefinitionFor(FileResourceProvider::class.java), registry)
+    listOf(
+        beanDefinitionFor(FileResourceProvider::class.java),
+        beanDefinitionFor(File::class.java)
+//        beanDefinitionFor(FileResourceConfigurationProperties::class.java)
+    ).forEach {
+      registerBean(it, registry)
+    }
   }
 
   private val logger = LoggerFactory.getLogger(FileResourceProvider::class.java)
