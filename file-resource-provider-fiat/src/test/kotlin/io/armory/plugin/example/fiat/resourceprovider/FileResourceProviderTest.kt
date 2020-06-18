@@ -13,6 +13,7 @@ import java.lang.IllegalStateException
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.nio.file.attribute.PosixFileAttributeView
+import java.nio.file.attribute.PosixFilePermissions
 
 class FileResourceProviderTest : JUnit5Minutests {
 
@@ -25,13 +26,11 @@ class FileResourceProviderTest : JUnit5Minutests {
     test("resource provider loads file permissions") {
       expectThat(subject.all.first().permissions) {
         get { get(Authorization.READ) }.isEqualTo(mutableListOf(group))
-        get { get(Authorization.WRITE) }.isEqualTo(mutableListOf(group))
         get { get(Authorization.EXECUTE) }.isEqualTo(mutableListOf(group))
       }
     }
 
     test("file resources can be mapped through the UserPermission class") {
-      val resources = subject.all
       val up = UserPermission().apply {
         addResources(subject.all as Collection<Resource>)
         roles = setOf(role)
@@ -43,16 +42,21 @@ class FileResourceProviderTest : JUnit5Minutests {
             .isA<Set<Authorizable>>()
             .and {
               get { first().name }.isEqualTo("test.txt")
-              get { first().authorizations }.contains(Authorization.READ, Authorization.WRITE, Authorization.EXECUTE)
+              get { first().authorizations }.contains(Authorization.READ, Authorization.EXECUTE)
             }
     }
   }
 
   inner class Fixture {
-    val path = javaClass.classLoader.getResource("test.txt")?.path ?: throw IllegalStateException("whoops!")
-    val subject = FileResourceProvider(FileResourceConfigurationProperties(path))
-    val group = Files.getFileAttributeView(Paths.get(path), PosixFileAttributeView::class.java).readAttributes().group().name
+    val testPath = javaClass.classLoader.getResource("test.txt")?.path ?: throw IllegalStateException("whoops!")
+    val group = Files.getFileAttributeView(Paths.get(testPath), PosixFileAttributeView::class.java).readAttributes().group().name
     val role = Role(group)
+
+    val subject = FileResourceProvider(FileResourceConfigurationProperties().apply { path = testPath })
+
+    init {
+      Files.setPosixFilePermissions(Paths.get(testPath), PosixFilePermissions.fromString("---r-x---"))
+    }
   }
 }
 
