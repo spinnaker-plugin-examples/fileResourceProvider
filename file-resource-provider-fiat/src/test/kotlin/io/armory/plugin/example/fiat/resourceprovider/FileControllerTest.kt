@@ -25,6 +25,10 @@ import org.springframework.web.bind.annotation.*
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 
+/**
+ * This test demonstrates how controller endpoints can use the @PreAuthorize annotation
+ * to manage access to a resource type provided by a plugin.
+ */
 class FileControllerTest : JUnit5Minutests {
 
   fun tests() = rootContext<Fixture> {
