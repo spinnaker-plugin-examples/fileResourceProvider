@@ -1,3 +1,6 @@
+![CI](https://github.com/spinnaker-plugin-examples/fileResourceProvider/workflows/CI/badge.svg)
+![Latest Kork](https://github.com/spinnaker-plugin-examples/fileResourceProvider/workflows/Latest%20Kork/badge.svg?branch=master)
+
 ## File Resource Provider Plugin
 
 This is a contrived but functional example of a Fiat `ResourceProvider` and `Resource` plugin. It depends
