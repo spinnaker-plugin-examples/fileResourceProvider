@@ -1,5 +1,7 @@
 ![CI](https://github.com/spinnaker-plugin-examples/fileResourceProvider/workflows/CI/badge.svg)
 ![Latest Kork](https://github.com/spinnaker-plugin-examples/fileResourceProvider/workflows/Latest%20Kork/badge.svg?branch=master)
+![Latest Fiat](https://github.com/spinnaker-plugin-examples/fileResourceProvider/workflows/Latest%20Fiat/badge.svg?branch=master)
+
 
 ## File Resource Provider Plugin
 
