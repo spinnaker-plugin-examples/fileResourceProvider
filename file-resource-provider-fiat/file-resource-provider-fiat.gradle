@@ -20,7 +20,7 @@ repositories {
   mavenLocal()
   mavenCentral()
   jcenter()
-  maven { url "http://dl.bintray.com/spinnaker/spinnaker/" }
+  maven { url "https://spinnaker-releases.bintray.com/jars" }
 }
 
 spinnakerPlugin {
@@ -70,7 +70,7 @@ compileKotlin {
 compileTestKotlin {
   kotlinOptions {
     languageVersion = "1.3"
-    jvmTarget = "1.8"
+    jvmTarget = "11"
   }
 }
 
